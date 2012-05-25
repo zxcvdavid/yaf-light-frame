@@ -1,7 +1,6 @@
 yaf-light-frame
 ===============
 
-EDITORIAL：
 
 Thank Yaf the author,laruence.And friends of Yaf group.
 
