@@ -5,15 +5,12 @@ namespace Db;
 if (!defined('YAF'))
     exit(-1);
 
-
-
 /**
  * mysql操作类
  *
  * @author zxcvdavid@gmail.com
  *
  */
-
 class Mysql implements DbInterface {
 
     private static $_instances;
@@ -23,7 +20,7 @@ class Mysql implements DbInterface {
 
     private function __construct($dbhost, $username, $password, $dbname, $dbcharset) {
         try {
-            $this->_dbh = new \PDO('mysql:dbname=' . $dbname . ';host=' . $dbhost, $username, $password , array(\PDO::ATTR_PERSISTENT => true));
+            $this->_dbh = new \PDO('mysql:dbname=' . $dbname . ';host=' . $dbhost, $username, $password, array(\PDO::ATTR_PERSISTENT => true));
             $this->_dbh->query('SET NAMES ' . $dbcharset);
         } catch (PDOException $e) {
             echo '<pre>';
@@ -32,12 +29,18 @@ class Mysql implements DbInterface {
         }
     }
 
-    static public function getInstance($dbhost = null, $username = null, $password = null, $dbname = null, $dbcharset = 'utf8') {
+    static public function getInstance($db_config = '') {
 
-        $idx = md5($dbhost . $dbname);
+        $_db_host = $db_config->host;
+        $_db_name = $db_config->dbname;
+        $_db_charset = $db_config->charset;
+        $_db_usr = $db_config->usr;
+        $_db_pwd = $db_config->pwd;
+
+        $idx = md5($_db_host . $_db_name);
 
         if (empty(self::$_instances[$idx])) {
-            self::$_instances[$idx] = new Mysql($dbhost, $username, $password, $dbname, $dbcharset);
+            self::$_instances[$idx] = new Mysql($_db_host, $_db_usr, $_db_pwd, $_db_name, $_db_charset);
         }
         return self::$_instances[$idx];
     }
@@ -157,7 +160,7 @@ class Mysql implements DbInterface {
         return $this->execute($sql, $values);
     }
 
-    function close(){
+    function close() {
         unset($this->_instances);
         unset($this->_dbh);
     }
