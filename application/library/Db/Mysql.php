@@ -39,7 +39,7 @@ class Mysql implements DbInterface {
 
         $idx = md5($_db_host . $_db_name);
 
-        if (empty(self::$_instances[$idx])) {
+        if (!isset(self::$_instances[$idx])) {
             self::$_instances[$idx] = new Mysql($_db_host, $_db_usr, $_db_pwd, $_db_name, $_db_charset);
         }
         return self::$_instances[$idx];

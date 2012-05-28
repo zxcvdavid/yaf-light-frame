@@ -1,6 +1,7 @@
 <?php
 define("APP_PATH",  dirname(__FILE__));
 define("YAF",1);
+define('STARTTIME', microtime(true));
 
 /**
  * yaf默认只支持application/library 目录下类的加载
@@ -64,6 +65,9 @@ try{
             break;
     }
     $app->bootstrap()->run();
+
+    echo '<!--' . round((microtime(true) - STARTTIME) * 1000) . 'ms-->';
+
 } catch (Exception $e){
     file_put_contents('log/yaf.log',"[" . date("Y-m-d H:i:s", time()) . "]". $e->getCode() . '--' . $e->getMessage() . "\r\n" , FILE_APPEND);
     header('location:/');

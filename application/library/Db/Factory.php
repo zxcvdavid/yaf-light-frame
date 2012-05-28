@@ -23,8 +23,8 @@ class Factory {
 
         $db = $class_name::getInstance( $db_config );
 
-        return (is_object($db)) ? $db : false;
+        return ($db instanceof DbInterface) ? $db : false;
 
-    }
+        }
 
 }
