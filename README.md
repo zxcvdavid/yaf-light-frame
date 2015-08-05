@@ -24,7 +24,7 @@ Introduction and use：
       
   3> Open rewrite module (check it)
 
-If you are using have any questions you can contact me.
+Feel free to contact me if you have any questions.
 
 Email:zxcvdavid@gmail.com
 
